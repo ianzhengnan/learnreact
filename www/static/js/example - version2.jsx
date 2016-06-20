@@ -88,8 +88,7 @@ var CommentBox = React.createClass({
 	      	dataType: 'json',
 	      	cache: false,
 	      	success: function(data){
-	      		console.log(data);
-	      		this.setState({data: data.comments});
+	      		this.setState({data: data});
 	      	}.bind(this),
 	      	error: function(xhr, status, err){
 	      		console.error(this.props.url, status, err.toString());
@@ -103,7 +102,7 @@ var CommentBox = React.createClass({
 		var newComments = comments.concat([comment]);
 
 		$.ajax({
-			url: '/restfullapi/doPostAction',
+			url: this.props.url,
 			dataType: 'json',
 			type: 'POST',
 			data: comment,
@@ -136,6 +135,6 @@ var CommentBox = React.createClass({
 });
 
 ReactDOM.render(
-	<CommentBox url="/restfullapi/doGetAction" pollInterval={2000} />,
+	<CommentBox url="../api/comments" pollInterval={2000} />,
 	document.getElementById('content')
 );
